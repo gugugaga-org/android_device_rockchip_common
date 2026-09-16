@@ -14,6 +14,8 @@ r_dir_file(system_server, metadata_file)
 
 # for rklog
 set_prop(system_server, dumpstate_prop)
+# RK3399's USB PHY extcon lives below a platform-specific sysfs path.
+allow system_server sysfs_extcon:dir r_dir_perms;
 
 #rk_output_hal
 allow system_server rk_output_hal_service:hwservice_manager find;

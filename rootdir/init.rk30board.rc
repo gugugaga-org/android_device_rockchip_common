@@ -314,7 +314,7 @@ service pppoe_stop /system/bin/pppoe-stop
     oneshot
 ##$_rbox_$_modify_$_end
 
-service up_eth0 /system/bin/busybox ifconfig eth0 up
+service up_eth0 /system/bin/ifconfig eth0 up
     class main
     oneshot
 
@@ -359,6 +359,3 @@ service read_pcie_info /vendor/bin/read_pcie_info.sh /mnt/sdcard/pcieInfo.tmp
 
 on property:vendor.flash.success=2
     start flash_img
-
-on property:flash.success=1
-   setprop vendor.flash.success 1
