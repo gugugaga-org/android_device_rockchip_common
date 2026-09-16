@@ -5,4 +5,4 @@ of=$(getprop vendor.flash_of_path)
 log -t flash_img "if=$if,of=$of"
 RESULT=$(dd if=$if of=$of 2>&1)
 log -t flash_img "$RESULT"
-setprop flash.success 1
+setprop vendor.flash.success 1

@@ -16,3 +16,4 @@ allow vendor_install_recovery mnt_user_file:dir { search read open getattr };
 allow vendor_install_recovery mnt_user_file:lnk_file r_file_perms;
 allow vendor_install_recovery fuse:dir { r_file_perms search };
 allow vendor_install_recovery fuse:file r_file_perms;
+set_prop(vendor_install_recovery, vendor_system_public_prop)
