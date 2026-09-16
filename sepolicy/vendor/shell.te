@@ -41,4 +41,11 @@ get_prop(shell, device_logging_prop)
 allow shell metadata_file:dir { search getattr rw_dir_perms };
 allow shell metadata_file:file r_file_perms;
 
+# Keep userdebug hardware diagnostics usable under enforcing mode. The base
+# platform already grants file access; these are the missing directory and
+# route-message permissions for the actual shell domain.
+allow shell proc_asound:dir r_dir_perms;
+allow shell net_data_file:dir search;
+allow shell self:netlink_route_socket { nlmsg_read nlmsg_write };
+
 rw_rockchip_graphic_device(shell)
