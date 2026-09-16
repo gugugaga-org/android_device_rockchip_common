@@ -1,8 +1,1 @@
 allow shell self:perf_event { open read write kernel };
-
-# Keep userdebug diagnostics usable under enforcing mode. These are platform
-# shell permissions; placing them in vendor policy only creates versioned
-# compatibility rules that are not effective for the running shell domain.
-allow shell proc_asound:dir r_dir_perms;
-allow shell net_data_file:dir search;
-allow shell self:netlink_route_socket { nlmsg_read nlmsg_write };
