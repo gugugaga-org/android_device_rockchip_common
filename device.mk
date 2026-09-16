@@ -727,7 +727,10 @@ endif
 endif
 
 # hdmi cec
-ifneq ($(filter atv box, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))), )
+ifeq ($(strip $(BOARD_HAVE_HDMI_CEC)),)
+BOARD_HAVE_HDMI_CEC := $(if $(filter atv box, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))),true,false)
+endif
+ifeq ($(strip $(BOARD_HAVE_HDMI_CEC)), true)
 BOARD_SHOW_HDMI_SETTING := true
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.hdmi.cec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.hdmi.cec.xml \

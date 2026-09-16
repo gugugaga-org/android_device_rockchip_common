@@ -18,17 +18,22 @@
 ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),box)
 PRODUCT_PACKAGES := \
     RKUpdateService \
+    RKTvLauncher
+
+ifneq ($(strip $(TPM312_REMOVE_BUNDLED_APPS)), true)
+PRODUCT_PACKAGES += \
     RKDeviceTest \
-    RKTvLauncher \
     PinyinIME \
     WifiDisplay \
     DLNA
+endif
 
 ifneq ($(strip $(BUILD_WITH_GOOGLE_MARKET)), true)
     PRODUCT_PACKAGES += \
         Lightning
 endif
 
+ifneq ($(strip $(TPM312_REMOVE_BUNDLED_APPS)), true)
 ifeq ($(strip $(BOARD_HAS_STRESSTEST_APP)), true)
     PRODUCT_PACKAGES += \
         StressTest
@@ -39,9 +44,12 @@ ifeq ($(BOARD_TV_LOW_MEMOPT), false)
         ChangeLedStatus
 endif
 endif
+endif
 
 # MediaCenter is required in BOX/ATV
+ifneq ($(strip $(TPM312_REMOVE_BUNDLED_APPS)), true)
 PRODUCT_PACKAGES += \
     MediaCenter
+endif
 
 #end Add Rockchip BOX/ATV Apps

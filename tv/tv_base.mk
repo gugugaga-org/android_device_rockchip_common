@@ -21,7 +21,9 @@ PRODUCT_PACKAGES := \
     tv_input.default
 
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+ifneq ($(strip $(TPM312_REMOVE_BUNDLED_APPS)), true)
 PRODUCT_PACKAGES += Traceur
+endif
 endif
 
 PRODUCT_COPY_FILES := \
