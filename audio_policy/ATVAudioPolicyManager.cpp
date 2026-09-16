@@ -162,7 +162,8 @@ status_t ATVAudioPolicyManager::getOutputForAttr(const audio_attributes_t *attr,
                                   audio_port_handle_t *selectedDeviceId,
                                   audio_port_handle_t *portId,
                                   std::vector<audio_io_handle_t> *secondaryOutputs,
-                                  output_type_t *outputType) { 
+                                  output_type_t *outputType,
+                                  bool *isSpatialized) {
     /*
      * see flags which set in AudioTrack.cpp
      * if (format == AUDIO_FORMAT_IEC61937) {
@@ -181,7 +182,7 @@ status_t ATVAudioPolicyManager::getOutputForAttr(const audio_attributes_t *attr,
     }
 
     return AudioPolicyManager::getOutputForAttr(attr, output, session, stream, attributionSource,
-           config, flags, selectedDeviceId, portId, secondaryOutputs, outputType);
+           config, flags, selectedDeviceId, portId, secondaryOutputs, outputType, isSpatialized);
 }
 
 }  // namespace android

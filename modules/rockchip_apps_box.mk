@@ -18,7 +18,6 @@
 ifeq ($(TARGET_BOARD_PLATFORM_PRODUCT),box)
 PRODUCT_PACKAGES := \
     RKUpdateService \
-    RKDeviceTest \
     RKTvLauncher \
     PinyinIME \
     WifiDisplay \
@@ -38,6 +37,10 @@ ifeq ($(BOARD_TV_LOW_MEMOPT), false)
     PRODUCT_PACKAGES += \
         ChangeLedStatus
 endif
+endif
+
+ifneq ($(TARGET_PRODUCT),lineage_rk3399_tpm312)
+PRODUCT_PACKAGES += RKDeviceTest
 endif
 
 # MediaCenter is required in BOX/ATV

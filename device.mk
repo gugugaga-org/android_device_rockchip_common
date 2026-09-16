@@ -157,7 +157,11 @@ PRODUCT_PACKAGES += \
     wpa_cli \
     wpa_supplicant.conf \
     dhcpcd.conf \
+
+ifeq ($(BOARD_WLAN_DEVICE), auto)
+PRODUCT_PACKAGES += \
     libwifi-hal-package
+endif
 
 ifeq ($(ROCKCHIP_USE_LAZY_HAL),true)
 PRODUCT_PACKAGES += \
@@ -381,7 +385,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.mpp_buf_type=1
 # Gralloc HAL
 PRODUCT_PACKAGES += \
-    arm.graphics-V1-ndk_platform.so \
+    arm.graphics-V1-ndk \
     android.hardware.graphics.allocator@4.0-impl-$(BOARD_VENDOR_GPU_PLATFORM) \
     android.hardware.graphics.mapper@4.0-impl-$(BOARD_VENDOR_GPU_PLATFORM) \
     android.hardware.graphics.allocator@4.0-service
@@ -456,7 +460,6 @@ PRODUCT_PACKAGES += \
     audio_policy.$(TARGET_BOARD_HARDWARE) \
     audio.primary.$(TARGET_BOARD_HARDWARE) \
     audio.alsa_usb.$(TARGET_BOARD_HARDWARE) \
-    audio.a2dp.default\
     audio.r_submix.default\
     libaudioroute\
     audio.usb.default\
@@ -681,6 +684,7 @@ ifeq ($(strip $(BOARD_HAVE_BLUETOOTH_RTK)), true)
 include hardware/realtek/rtkbt/rtkbt.mk
 endif
 
+ifneq ($(TARGET_PRODUCT),lineage_rk3399_tpm312)
 ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
     #include device/rockchip/common/samba/rk31_samba.mk
     PRODUCT_COPY_FILES += \
@@ -692,6 +696,7 @@ ifeq ($(strip $(TARGET_BOARD_PLATFORM_PRODUCT)), box)
 else
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.rk.screenoff_time=60000
+endif
 endif
 
 # incrementalfs config
@@ -727,7 +732,10 @@ endif
 endif
 
 # hdmi cec
-ifneq ($(filter atv box, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))), )
+ifeq ($(strip $(BOARD_HAVE_HDMI_CEC)),)
+BOARD_HAVE_HDMI_CEC := $(if $(filter atv box, $(strip $(TARGET_BOARD_PLATFORM_PRODUCT))),true,false)
+endif
+ifeq ($(strip $(BOARD_HAVE_HDMI_CEC)), true)
 BOARD_SHOW_HDMI_SETTING := true
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.hdmi.cec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.hdmi.cec.xml \
@@ -903,9 +911,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.logd.kernel=1
-PRODUCT_COPY_FILES += \
-    device/rockchip/common/zmodem/rz:$(TARGET_COPY_OUT_VENDOR)/bin/rz \
-    device/rockchip/common/zmodem/sz:$(TARGET_COPY_OUT_VENDOR)/bin/sz
 PRODUCT_PACKAGES += io
 endif
 

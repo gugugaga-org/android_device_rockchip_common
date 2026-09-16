@@ -32,6 +32,7 @@ public:
 
      // AudioPolicyInterface
     virtual status_t initialize();
+    using AudioPolicyManager::setDeviceConnectionState;
     virtual status_t setDeviceConnectionState(audio_devices_t device,
                                               audio_policy_dev_state_t state,
                                               const char *device_address,
@@ -47,7 +48,8 @@ public:
                                   audio_port_handle_t *selectedDeviceId,
                                   audio_port_handle_t *portId,
                                   std::vector<audio_io_handle_t> *secondaryOutputs,
-                                  output_type_t *outputType) override;
+                                  output_type_t *outputType,
+                                  bool *isSpatialized) override;
 
 protected:
     bool isAlreadConnect(audio_devices_t device,audio_policy_dev_state_t state,
