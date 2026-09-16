@@ -57,6 +57,7 @@
 #hdmi
 /sys/devices/virtual/display/HDMI(/.*)? -- u:object_r:sysfs_hdmi:s0
 /sys/devices/platform/display-subsystem/drm(/.*)? -- u:object_r:sysfs_hdmi:s0
+/sys/devices/platform/ff770000.syscon/ff770000.syscon:usb2-phy@e450/extcon(/.*)? -- u:object_r:sysfs_extcon:s0
 /sys/class/devfreq/dmc(/.*)? -- u:object_r:sysfs_hdmi:s0
 /sys/system_monitor/system_status               u:object_r:sysfs_dmc:s0
 /sys/devices/platform/dmc/devfreq(/.*)?         u:object_r:sysfs_dmc:s0

@@ -69,6 +69,14 @@ vendor.all.modules.ready                u:object_r:vendor_system_public_prop:s0
 
 # drmservice
 persist.vendor.sys.hid                  u:object_r:vendor_drmservice_prop:s0
+vendor.secureboot                          u:object_r:vendor_drmservice_prop:s0
+
+# Legacy flash_img.sh completion signal.
+vendor.flash.success                    u:object_r:vendor_system_public_prop:s0
+
+# Realtek Bluetooth and tee-supplicant legacy properties.
+vendor.realtek.bluetooth.chip_name        u:object_r:vendor_system_public_prop:s0
+vendor.security.tee_supplicant            u:object_r:vendor_system_public_prop:s0
 
 # power aidl configs
 ro.vendor.power.                        u:object_r:vendor_power_prop:s0
