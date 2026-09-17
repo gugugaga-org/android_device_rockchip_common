@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+ifneq ($(strip $(TARGET_PRODUCT)), RVMON7_CTRL_PCB)
 PRODUCT_PACKAGES += \
-    RKDeviceTest \
-    Lightning \
     LiveWallpapersPicker \
     RkVideoPlayer \
     RkExplorer \

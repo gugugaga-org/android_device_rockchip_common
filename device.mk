@@ -165,6 +165,9 @@ ifeq ($(PRODUCT_HAVE_DLNA),true)
 PRODUCT_PACKAGES += \
     MediaCenter \
     DLNA
+ifeq ($(strip $(BOARD_HAS_RK_4G_MODEM)),true)
+$(call inherit-product, device/rockchip/common/modules/4g_modem.mk)
+endif
 endif
 
 ifeq ($(filter MediaTek_mt7601 MediaTek RealTek Espressif, $(strip $(BOARD_CONNECTIVITY_VENDOR))), )
@@ -863,4 +866,3 @@ endif
 ifeq ($(strip $(BOARD_BIOMETRICS_FACE)), true)
 $(call inherit-product, device/rockchip/common/modules/biometrics.mk)
 endif
-
