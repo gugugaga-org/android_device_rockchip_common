@@ -19,10 +19,6 @@ PRODUCT_PACKAGES := \
     TvSettings \
     SettingsIntelligence
 
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
-PRODUCT_PACKAGES += Traceur
-endif
-
 PRODUCT_COPY_FILES := \
     device/rockchip/common/tv/permissions/tv_core_hardware.xml:system/etc/permissions/tv_core_hardware.xml \
     device/rockchip/common/permissions/rockchip.software.audio.xml:system/etc/permissions/rockchip.software.audio.xml
@@ -71,7 +67,6 @@ PRODUCT_PACKAGES += \
     BasicDreams \
     Browser \
     CalendarProvider \
-    ExactCalculator \
     CaptivePortalLogin \
     CertInstaller \
     ExternalStorageProvider \
@@ -99,7 +94,6 @@ PRODUCT_PACKAGES += \
     clatd.conf \
     local_time.default \
     screenrecord \
-    Camera2 \
     Provision
 
 # From build/target/product/handheld_system.mk
