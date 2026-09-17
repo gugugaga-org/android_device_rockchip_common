@@ -1,3 +1,5 @@
+drm_device_management                           u:object_r:drm_device_management_service:s0
+rkbox_management                                u:object_r:rkbox_management_service:s0
 android.hardware.drm.IDrmFactory/widevine                       u:object_r:hal_drm_service:s0
 android.hardware.camera.provider.ICameraProvider/external/0     u:object_r:hal_camera_service:s0
 android.hardware.camera.provider.ICameraProvider/hdmi/0         u:object_r:hal_camera_service:s0
