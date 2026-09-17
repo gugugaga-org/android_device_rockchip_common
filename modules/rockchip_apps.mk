@@ -13,11 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-PRODUCT_PACKAGES += \
-    RKDeviceTest \
-    Lightning \
-    StressTest
-
 ifneq ($(strip $(TARGET_PRODUCT)), RVMON7_CTRL_PCB)
   PRODUCT_PACKAGES += \
     LiveWallpapersPicker \

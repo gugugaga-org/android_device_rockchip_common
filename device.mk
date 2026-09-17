@@ -31,11 +31,6 @@ endif
 PRODUCT_AAPT_CONFIG ?= normal large xlarge hdpi tvdpi xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG ?= xhdpi
 
-ifneq ($(strip $(TARGET_PRODUCT)), RVMON7_CTRL_PCB)
-  PRODUCT_PACKAGES += \
-    ExactCalculator
-endif
-
 PRODUCT_PACKAGES += \
     wakeup-alarmalign-whitelist.xml
 
@@ -169,12 +164,6 @@ PRODUCT_PACKAGES += \
 else
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service
-endif
-
-ifeq ($(PRODUCT_HAVE_DLNA),true)
-PRODUCT_PACKAGES += \
-    MediaCenter \
-    DLNA
 endif
 
 ifeq ($(strip $(BOARD_HAS_RK_4G_MODEM)),true)
