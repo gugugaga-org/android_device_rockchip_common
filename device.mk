@@ -150,8 +150,12 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_cli \
     wpa_supplicant.conf \
-    libwifi-hal-package \
     dhcpcd.conf
+
+ifeq ($(BOARD_WLAN_DEVICE), auto)
+PRODUCT_PACKAGES += \
+    libwifi-hal-package
+endif
 
 ifeq ($(ROCKCHIP_USE_LAZY_HAL),true)
 PRODUCT_PACKAGES += \
