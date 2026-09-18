@@ -1,6 +1,19 @@
 import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 import /vendor/etc/init/hw/init.${ro.hardware}.environment.rc
 import /vendor/etc/init/hw/init.debug.rc
+
+# Legacy HWC2 products must register their composer before the shared
+# init.mount_all.rc action starts SurfaceFlinger. HWC3 products do not define
+# this service, so init simply ignores the unavailable start request.
+on late-fs
+    start vendor.hwcomposer-2-1
+
+# RK3399's legacy HWC2 service initializes the DRM device synchronously. Give
+# it time to register its HIDL composer before the shared late-fs action starts
+# SurfaceFlinger; otherwise SurfaceFlinger aborts when getService() races it.
+on late-fs && property:ro.product.device=rk3399_tpm312
+    exec -- /system/bin/sleep 5
+
 import /vendor/etc/init/hw/init.mount_all.rc
 
 on early-init
