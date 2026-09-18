@@ -19,7 +19,7 @@ package {
 }
 
 runtime_resource_overlay {
-    name: "CarServiceOverlayPhoneCar",
+    name: "RockchipCarServiceOverlayPhoneCar",
     resource_dirs: ["res"],
     manifest: "AndroidManifest.xml",
     sdk_version: "current",

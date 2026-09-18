@@ -31,7 +31,7 @@ PRODUCT_ENFORCE_RRO_TARGETS :=
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := false
 
 # Set Car Service RRO
-PRODUCT_PACKAGES += CarServiceOverlayPhoneCar
+PRODUCT_PACKAGES += RockchipCarServiceOverlayPhoneCar
 GOOGLE_CAR_SERVICE_OVERLAY += CarServiceOverlayPhoneCarGoogle
 
 # All components inherited here go to system image
