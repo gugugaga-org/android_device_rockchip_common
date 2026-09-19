@@ -15,15 +15,16 @@
 #
 
 # Health hardware impl
+#
+# The device VINTF manifest declares android.hardware.health@2.1::IHealth/default,
+# so the vendor image must carry the matching HIDL service.  With no health HAL
+# registered, BatteryService blocks in HealthServiceWrapperHidl while
+# system_server is still starting core services (IHealth.getService retries
+# forever) and the system server watchdog then kills the process.
 PRODUCT_PACKAGES += \
-    android.hardware.health-service.rockchip \
-    android.hardware.health-service.rockchip_recovery
-
-# Charger resource
-PRODUCT_PACKAGES += \
-    charger_res_images_rockchip
+    android.hardware.health@2.1-service \
+    android.hardware.health@2.1-impl
 
 # Allows healthd to boot directly from charger mode rather than initiating a reboot.
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.enable_boot_charger_mode=0
-
