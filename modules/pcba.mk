@@ -24,7 +24,7 @@ PRODUCT_PACKAGES += \
     media-ctl.recovery
 
 PRODUCT_COPY_FILES += \
-   $(TARGET_DEVICE_DIR)/bt_vendor.conf:$(PRODUCT_OUT)/$(TARGET_COPY_OUT_RECOVERY)/root/pcba/bt_vendor.conf \
+   $(ROCKCHIP_DEVICE_DIR)/bt_vendor.conf:$(PRODUCT_OUT)/$(TARGET_COPY_OUT_RECOVERY)/root/pcba/bt_vendor.conf \
    $(call find-copy-subdir-files,*,bootable/recovery/pcba_core/res,$(PRODUCT_OUT)/$(TARGET_COPY_OUT_RECOVERY)/root/pcba) \
    $(call find-copy-subdir-files,"*.ko",external/wifi_driver/,$(PRODUCT_OUT)/$(TARGET_COPY_OUT_RECOVERY)/root/pcba/modules/rkwifi) \
    $(call find-copy-subdir-files,*,vendor/rockchip/common/wifi/firmware,$(PRODUCT_OUT)/$(TARGET_COPY_OUT_RECOVERY)/root/vendor/etc/firmware)

@@ -88,7 +88,7 @@ PRODUCT_COPY_FILES += \
 
 # bt config for ap bt
 PRODUCT_COPY_FILES += \
-    $(TARGET_DEVICE_DIR)/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf
+    $(ROCKCHIP_DEVICE_DIR)/bt_vendor.conf:/vendor/etc/bluetooth/bt_vendor.conf
 
 # Feature
 PRODUCT_COPY_FILES += \
