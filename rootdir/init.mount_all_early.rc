@@ -14,9 +14,16 @@ on fs
 on late-fs
     # Start services for bootanim
     start servicemanager
-    start vendor.gralloc-v1
-    start vendor.rockchip_hwcproxy_aidl
-    start hwcomposer-3
+    # Start the display HALs this product actually installs: the HIDL
+    # allocator@4.0 and composer@2.1 services (modules/graphics.mk installs
+    # them unless TARGET_USES_HWC3_AIDL is set).  The AIDL names that used to
+    # be listed here (vendor.gralloc-v1, vendor.rockchip_hwcproxy_aidl,
+    # hwcomposer-3) belong to the newer HWC3-AIDL BSP and exist nowhere in
+    # this tree, so they started nothing: composer@2.1 stayed unregistered and
+    # SurfaceFlinger aborted with "failed to get hwcomposer service", leaving
+    # the boot stuck before zygote.
+    start vendor.gralloc-4-0
+    start vendor.hwcomposer-2-1
     start surfaceflinger
     start bootanim
 
