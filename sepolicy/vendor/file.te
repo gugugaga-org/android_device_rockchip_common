@@ -13,4 +13,10 @@ type sysfs_dev, fs_type, sysfs_type, mlstrustedobject;
 type debugfs_sw_sync, fs_type, debugfs_type;
 type sysfs_dmc, fs_type, sysfs_type;
 type sysfs_mmc, fs_type, sysfs_type;
-type sysfs_udc, fs_type, sysfs_type;
+# Android 15 reserves the name sysfs_udc for the platform
+# (system/sepolicy/private/file.te below board API 202504,
+# system/sepolicy/public/file.te from 202504 on), so the vendor label for
+# /sys/class/udc has to use a vendor-owned name.  The platform only labels
+# that path from 202504 on (plat_sepolicy_genfs_202504.cil), so below that
+# board API level the device keeps labelling it itself.
+type sysfs_udc_vendor, fs_type, sysfs_type;
