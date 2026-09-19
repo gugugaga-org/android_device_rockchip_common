@@ -183,7 +183,10 @@ BOARD_HAS_FLIPPED_SCREEN ?= false
 RECOVERY_AUTO_USB_UPDATE ?= false
 
 # To use bmp as kernel logo, uncomment the line below to use bgra 8888 in recovery
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+# Keep the value bare: the Soong extra-variables file emits it as a JSON string
+# (build/make/core/soong_extra_config.mk) and as the ro.minui.pixel_format
+# property value, so embedded quotes make the JSON invalid.
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_ROCKCHIP_PCBATEST ?= true
 #TARGET_RECOVERY_UI_LIB ?= librecovery_ui_$(TARGET_PRODUCT)
 
