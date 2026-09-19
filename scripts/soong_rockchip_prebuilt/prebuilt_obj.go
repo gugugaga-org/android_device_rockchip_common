@@ -114,33 +114,43 @@ func (p *RockchipPrebuiltObject) InstallInRecovery() bool {
 
 var _ android.ImageInterface = (*RockchipPrebuiltObject)(nil)
 
-func (p *RockchipPrebuiltObject) ImageMutatorBegin(ctx android.BaseModuleContext) {}
+func (p *RockchipPrebuiltObject) ImageMutatorBegin(ctx android.ImageInterfaceContext) {}
 
-func (p *RockchipPrebuiltObject) CoreVariantNeeded(ctx android.BaseModuleContext) bool {
+// Rockchip prebuilts are plain files installed by partition (see modulePartition);
+// they never needed the cc-specific vendor/product image variations.
+func (p *RockchipPrebuiltObject) VendorVariantNeeded(ctx android.ImageInterfaceContext) bool {
+    return false
+}
+
+func (p *RockchipPrebuiltObject) ProductVariantNeeded(ctx android.ImageInterfaceContext) bool {
+    return false
+}
+
+func (p *RockchipPrebuiltObject) CoreVariantNeeded(ctx android.ImageInterfaceContext) bool {
     return !p.ModuleBase.InstallInRecovery() && !p.ModuleBase.InstallInRamdisk()
 }
 
-func (p *RockchipPrebuiltObject) RamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
+func (p *RockchipPrebuiltObject) RamdiskVariantNeeded(ctx android.ImageInterfaceContext) bool {
     return android.Bool(p.properties.Ramdisk_available) || p.ModuleBase.InstallInRamdisk()
 }
 
-func (p *RockchipPrebuiltObject) VendorRamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
+func (p *RockchipPrebuiltObject) VendorRamdiskVariantNeeded(ctx android.ImageInterfaceContext) bool {
     return android.Bool(p.properties.Vendor_ramdisk_available) || p.ModuleBase.InstallInVendorRamdisk()
 }
 
-func (p *RockchipPrebuiltObject) DebugRamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
+func (p *RockchipPrebuiltObject) DebugRamdiskVariantNeeded(ctx android.ImageInterfaceContext) bool {
     return android.Bool(p.properties.Debug_ramdisk_available) || p.ModuleBase.InstallInDebugRamdisk()
 }
 
-func (p *RockchipPrebuiltObject) RecoveryVariantNeeded(ctx android.BaseModuleContext) bool {
+func (p *RockchipPrebuiltObject) RecoveryVariantNeeded(ctx android.ImageInterfaceContext) bool {
     return android.Bool(p.properties.Recovery_available) || p.ModuleBase.InstallInRecovery()
 }
 
-func (p *RockchipPrebuiltObject) ExtraImageVariations(ctx android.BaseModuleContext) []string {
+func (p *RockchipPrebuiltObject) ExtraImageVariations(ctx android.ImageInterfaceContext) []string {
     return nil
 }
 
-func (p *RockchipPrebuiltObject) SetImageVariation(ctx android.BaseModuleContext, variation string, module android.Module) {
+func (p *RockchipPrebuiltObject) SetImageVariation(ctx android.ImageInterfaceContext, variation string) {
 }
 
 func (p *RockchipPrebuiltObject) DepsMutator(ctx android.BottomUpMutatorContext) {
