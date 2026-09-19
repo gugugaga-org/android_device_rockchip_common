@@ -62,7 +62,12 @@ vendor.gmali.                           u:object_r:vendor_system_public_prop:s0
 vendor.gralloc.                         u:object_r:vendor_system_public_prop:s0
 
 # audio
-vendor.audio                            u:object_r:vendor_system_public_prop:s0
+vendor.audio.                           u:object_r:vendor_system_public_prop:s0
+vendor.hdmiin.                          u:object_r:vendor_system_public_prop:s0
+# Audio configuration paths are looked up through this Qualcomm value-add probe
+# by the AOSP audio policy code in audioserver.  Left unlabeled it falls back to
+# vendor_default_prop, which a coredomain may not read.
+ro.vendor.qti.va_aosp.support           u:object_r:vendor_qti_va_aosp_prop:s0
 vendor.boot_completed                   u:object_r:vendor_boot_complete_prop:s0
 
 # for vendor/build.prop

@@ -1,1 +1,5 @@
 binder_call(audioserver, bootanim)
+
+# The audio policy configuration loader probes Qualcomm's value-add support
+# property; it is absent here but the lookup must still be allowed.
+get_prop(audioserver, vendor_qti_va_aosp_prop)
