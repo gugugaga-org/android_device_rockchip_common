@@ -13,6 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Android 15 parses the inherited product makefiles before it expands the
+# PRODUCT_* variables, so PRODUCT_DEVICE, TARGET_DEVICE and TARGET_DEVICE_DIR
+# are all still empty while the files below are parsed.  Every copy that asked
+# for the device directory therefore lost its prefix ("/bt_vendor.conf"), which
+# Soong's filesystem generator rejects with "Path is outside directory", and the
+# $(shell test -f ...) guards that choose between the product file and the
+# shared file silently fell back to the shared file.  The product makefile that
+# pulls this file in is known while it is being expanded, and the Rockchip
+# device directory is the one that holds it - the same path the board config
+# later derives TARGET_DEVICE_DIR from.  A product whose BoardConfig.mk lives
+# outside its product makefile directory can preset ROCKCHIP_DEVICE_DIR before
+# inheriting this file.
+ifndef ROCKCHIP_DEVICE_DIR
+ROCKCHIP_DEVICE_DIR := $(patsubst %/,%,$(dir $(current_product_makefile)))
+endif
+
 include vendor/rockchip/common/BoardConfigVendor.mk
 
 ifeq ($(strip $(TARGET_ARCH)), arm64)
@@ -174,13 +190,13 @@ $(warning Please add fstab.in with PRODUCT_FSTAB_TEMPLATE in your product.mk)
 # To use fstab auto generator, define fstab.in in your product.mk,
 # Then include the device/rockchip/common/build/rockchip/RebuildFstab.mk in your AndroidBoard.mk
 PRODUCT_COPY_FILES += \
-    $(TARGET_DEVICE_DIR)/fstab.rk30board:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(TARGET_BOARD_HARDWARE) \
-    $(TARGET_DEVICE_DIR)/fstab.rk30board:$(TARGET_COPY_OUT_RAMDISK)/fstab.$(TARGET_BOARD_HARDWARE)
+    $(ROCKCHIP_DEVICE_DIR)/fstab.rk30board:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.$(TARGET_BOARD_HARDWARE) \
+    $(ROCKCHIP_DEVICE_DIR)/fstab.rk30board:$(TARGET_COPY_OUT_RAMDISK)/fstab.$(TARGET_BOARD_HARDWARE)
 
 # Header V3+, add vendor_boot
 ifeq ($(BOARD_BUILD_GKI),true)
 PRODUCT_COPY_FILES += \
-    $(TARGET_DEVICE_DIR)/fstab.rk30board:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.$(TARGET_BOARD_HARDWARE)
+    $(ROCKCHIP_DEVICE_DIR)/fstab.rk30board:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.$(TARGET_BOARD_HARDWARE)
 endif
 endif # Use PRODUCT_FSTAB_TEMPLATE
 
@@ -556,10 +572,10 @@ ifeq ($(strip $(BOARD_SHOW_HDMI_SETTING)), true)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.hdmi_settings=true
 
-USE_PRODUCT_RESOLUTION_WHITE := $(shell test -f $(TARGET_DEVICE_DIR)/resolution_white.xml && echo true)
+USE_PRODUCT_RESOLUTION_WHITE := $(shell test -f $(ROCKCHIP_DEVICE_DIR)/resolution_white.xml && echo true)
 ifeq ($(strip $(USE_PRODUCT_RESOLUTION_WHITE)), true)
   PRODUCT_COPY_FILES += \
-      $(TARGET_DEVICE_DIR)/resolution_white.xml:/system/usr/share/resolution_white.xml
+      $(ROCKCHIP_DEVICE_DIR)/resolution_white.xml:/system/usr/share/resolution_white.xml
 endif
 
 # Hw Output HAL
@@ -766,10 +782,10 @@ endif
 PRODUCT_PACKAGES += \
 	libbaseparameter
 
-USE_PRODUCT_DISPLAY_SETTINGS := $(shell test -f $(TARGET_DEVICE_DIR)/displays/display_settings.xml && echo true)
+USE_PRODUCT_DISPLAY_SETTINGS := $(shell test -f $(ROCKCHIP_DEVICE_DIR)/displays/display_settings.xml && echo true)
 ifeq ($(strip $(USE_PRODUCT_DISPLAY_SETTINGS)), true)
 PRODUCT_COPY_FILES += \
-    $(TARGET_DEVICE_DIR)/displays/display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
+    $(ROCKCHIP_DEVICE_DIR)/displays/display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
 else
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
