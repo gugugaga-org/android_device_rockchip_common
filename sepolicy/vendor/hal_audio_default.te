@@ -3,3 +3,8 @@ allow hal_audio_default sysfs:file rw_file_perms;
 
 get_prop(hal_audio_default, vendor_system_public_prop)
 get_prop(hal_audio_default, vendor_vts_status_prop)
+
+# The AOSP audio policy configuration loader is linked into the primary audio
+# HAL as well as into audioserver, so this HAL probes the Qualcomm value-add
+# property too.
+get_prop(hal_audio_default, vendor_qti_va_aosp_prop)

@@ -18,6 +18,12 @@ BOARD_SEPOLICY_DIRS += \
     device/rockchip/common/sepolicy/vendor \
     device/rockchip/$(TARGET_BOARD_PLATFORM)/sepolicy_vendor
 
+# Lineage has already initialized SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS before this
+# file is inherited.  Add Rockchip's A14 system_ext rules explicitly instead
+# of using the legacy ?= private directory, which is consequently ignored.
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += \
+    device/rockchip/common/sepolicy/system_ext/private
+
 #SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS ?= device/rockchip/common/sepolicy/public
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS ?= \
     device/rockchip/common/sepolicy/private \

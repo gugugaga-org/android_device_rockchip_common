@@ -1,0 +1,4 @@
+# HDMI-in selection is consumed by the Rockchip audio HAL in audioserver.  It
+# was left unlabeled when the old common sepolicy/private directory stopped
+# being included, which made it fall back to vendor_default_prop.
+tvinput.hdmiin.type         u:object_r:debug_prop:s0

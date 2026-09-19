@@ -14,5 +14,9 @@ vendor_restricted_prop(vendor_base_prop)
 vendor_restricted_prop(vendor_boot_complete_prop)
 vendor_restricted_prop(vendor_omx_prop)
 vendor_restricted_prop(vendor_power_prop)
+# Qualcomm value-add probe that the AOSP audio policy configuration loader reads
+# on every platform; only audioserver and the primary audio HAL are granted
+# access to it.
+vendor_restricted_prop(vendor_qti_va_aosp_prop)
 
 typeattribute vendor_system_public_prop mlstrustedobject;
