@@ -3,7 +3,6 @@
 on init
     start tee-supplicant
     start vendor.keymint-default
-    start vendor.keymaster-4-0
 
 on early-fs
     start vold
@@ -14,15 +13,15 @@ on fs
 on late-fs
     # Start services for bootanim
     start servicemanager
-    # Start the display HALs this product actually installs: the HIDL
-    # allocator@4.0 and composer@2.1 services (modules/graphics.mk installs
-    # them unless TARGET_USES_HWC3_AIDL is set).  The AIDL names that used to
-    # be listed here (vendor.gralloc-v1, vendor.rockchip_hwcproxy_aidl,
-    # hwcomposer-3) belong to the newer HWC3-AIDL BSP and exist nowhere in
-    # this tree, so they started nothing: composer@2.1 stayed unregistered and
-    # SurfaceFlinger aborted with "failed to get hwcomposer service", leaving
-    # the boot stuck before zygote.
+    # Start the display HALs this product installs: the AIDL graphics allocator
+    # (TARGET_RK_GRALLOC_AIDL) and composer@2.1.  composer@2.1 must be up before
+    # SurfaceFlinger, otherwise it aborts with "failed to get hwcomposer
+    # service" and the boot stays stuck before zygote.
+    # allocator@4.0 is installed as well: libui's Gralloc4 wrapper probes the
+    # HIDL allocator before the AIDL one and blocks forever when the device
+    # manifest declares it but no service ever registers.
     start vendor.gralloc-4-0
+    start vendor.gralloc-v1
     start vendor.hwcomposer-2-1
     start surfaceflinger
     start bootanim
