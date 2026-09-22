@@ -116,6 +116,8 @@ var _ android.ImageInterface = (*RockchipPrebuiltObject)(nil)
 
 func (p *RockchipPrebuiltObject) ImageMutatorBegin(ctx android.ImageInterfaceContext) {}
 
+func (p *RockchipPrebuiltObject) ImageMutatorSupported() bool { return true }
+
 // Rockchip prebuilts are plain files installed by partition (see modulePartition);
 // they never needed the cc-specific vendor/product image variations.
 func (p *RockchipPrebuiltObject) VendorVariantNeeded(ctx android.ImageInterfaceContext) bool {
@@ -291,4 +293,3 @@ func RockchipPrebuiltBinFactory() android.Module {
     android.InitAndroidArchModule(module, android.DeviceSupported, android.MultilibFirst)
     return module
 }
-
