@@ -153,9 +153,9 @@ endif
 BOARD_SEPOLICY_DIRS += device/google/atv/sepolicy
 
 
-# Copy .kl file for generic voice remotes
-PRODUCT_COPY_FILES += \
-    device/google/atv/Generic.kl:system/usr/keylayout/Generic.kl
+# Android 16 installs the system Generic.kl through the keylayout_data Soong
+# module, and device/google/atv installs its voice-remote layout through Soong.
+# Do not add a duplicate Make copy to system/usr/keylayout/Generic.kl.
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
 $(call inherit-product-if-exists, external/svox/pico/lang/all_pico_languages.mk)
 $(call inherit-product-if-exists, frameworks/base/data/fonts/fonts.mk)
