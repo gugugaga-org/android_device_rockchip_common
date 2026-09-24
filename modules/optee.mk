@@ -17,7 +17,11 @@
 #for enable optee support
 ifeq ($(strip $(PRODUCT_HAVE_OPTEE)),true)
 
-# Use keymint 1.0 to support app_attest_key
+# Only advertise OP-TEE-backed attestation when the product selects the
+# Rockchip OP-TEE KeyMint implementation. TPM312 may explicitly select the
+# AOSP software KeyMint service for this user-approved port; that service must not
+# advertise hardware attestation.
+ifneq ($(strip $(TPM312_USE_SOFTWARE_KEYMINT)),true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.keystore.app_attest_key.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.keystore.app_attest_key.xml
 
@@ -26,12 +30,18 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
     frameworks/native/data/etc/android.hardware.device_unique_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.device_unique_attestation.xml
 endif
+endif
 
 PRODUCT_PACKAGES += \
     tee-supplicant \
     android.hardware.gatekeeper-service.optee \
-    android.hardware.security.keymint-service.optee \
     android.hardware.weaver-service.optee
+
+ifeq ($(strip $(TPM312_USE_SOFTWARE_KEYMINT)),true)
+PRODUCT_PACKAGES += android.hardware.security.keymint-service
+else
+PRODUCT_PACKAGES += android.hardware.security.keymint-service.optee
+endif
 
 ifneq ($(filter rk312x rk322x rk3288 rk3328 rk322xh rk3368 rk3399 rk3399pro, $(strip $(TARGET_BOARD_PLATFORM))), )
 
