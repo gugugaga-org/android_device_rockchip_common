@@ -59,3 +59,5 @@ allow system_app mnt_pass_through_file:dir r_file_perms;
 # The Rockchip DRM display service is registered by system_server and is
 # looked up by TvSettings for the display settings screens.
 allow system_app drm_device_management_service:service_manager find;
+# TvSettings reads this dedicated HWC property to populate display modes.
+get_prop(system_app, vendor_hwc_display_configs_prop)
