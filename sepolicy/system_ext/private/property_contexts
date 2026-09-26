@@ -2,3 +2,8 @@
 # was left unlabeled when the old common sepolicy/private directory stopped
 # being included, which made it fall back to vendor_default_prop.
 tvinput.hdmiin.type         u:object_r:debug_prop:s0
+
+# Legacy Rockchip board properties are loaded from the vendor build.prop.
+# Restore their original label from sepolicy/private/property_contexts so
+# vendor_init can set them on Android 16.
+ro.rk.                      u:object_r:debug_prop:s0

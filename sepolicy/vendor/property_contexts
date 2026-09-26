@@ -5,7 +5,6 @@ vendor.cam.                             u:object_r:vendor_camera_prop:s0
 vendor.vts_test                         u:object_r:vendor_vts_status_prop:s0
 # hwc
 vendor.hwc.enable_display_configs       u:object_r:vendor_hwc_display_configs_prop:s0 exact bool
-ro.rk.hdmi_enable                       u:object_r:vendor_hwc_prop:s0 exact bool
 vendor.hwc.                             u:object_r:vendor_hwc_prop:s0
 vendor.ghwc.                            u:object_r:vendor_hwc_prop:s0
 # omx
